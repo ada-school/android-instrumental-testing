@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import org.adaschool.instrumentaltesting.databinding.FragmentLoginBinding
 import org.adaschool.instrumentaltesting.viewmodel.LoginFragmentViewModel
+import org.adaschool.instrumentaltesting.viewmodel.SUCCESS_RESPONSE_INT
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -37,7 +38,13 @@ class LoginFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
-        viewModel.successLiveData.observe(viewLifecycleOwner, {
+        viewModel.successLiveData.observe(viewLifecycleOwner, { errorMessageRes ->
+            if (errorMessageRes == SUCCESS_RESPONSE_INT) {
+                binding.errorMessage.visibility = View.GONE
+            } else {
+                binding.errorMessage.setText(errorMessageRes)
+                binding.errorMessage.visibility = View.VISIBLE
+            }
             hideShowProgressBar(false)
             binding.loginButton.isEnabled = true
         })

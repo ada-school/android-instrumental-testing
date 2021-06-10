@@ -14,4 +14,5 @@
   <string name="invalid_input">invalid input</string>
   <string name="password">password</string>
   <string name="email">email</string>
+  <string name="authentication_error_message">Invalid email or password. Please check and try again</string>
 </resources>
