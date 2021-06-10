@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import org.adaschool.instrumentaltesting.databinding.FragmentFirstBinding
+import org.adaschool.instrumentaltesting.viewmodel.LoginFragmentViewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -19,6 +21,8 @@ class LoginFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    val viewModel: LoginFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
