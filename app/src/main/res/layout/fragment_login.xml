@@ -23,20 +23,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:inputType="textEmailAddress"
-    app:layout_constraintBottom_toTopOf="@+id/login_button"
+    android:hint="@string/email"
+    app:layout_constraintBottom_toTopOf="@+id/password"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/password" />
+    app:layout_constraintTop_toBottomOf="@+id/textview_first" />
 
   <EditText
     android:id="@+id/password"
+    android:hint="@string/password"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:inputType="textPassword"
     app:layout_constraintBottom_toTopOf="@+id/login_button"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/textview_first" />
+    app:layout_constraintStart_toStartOf="parent" />
 
   <Button
     android:id="@+id/login_button"
@@ -48,4 +49,16 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/textview_first" />
+
+  <ProgressBar
+    android:id="@+id/progressBar"
+    style="?android:attr/progressBarStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:indeterminate="true"
+    android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@+id/password"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textview_first" />
 </androidx.constraintlayout.widget.ConstraintLayout>

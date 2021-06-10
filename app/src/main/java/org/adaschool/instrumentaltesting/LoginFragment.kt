@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import org.adaschool.instrumentaltesting.databinding.FragmentFirstBinding
+import org.adaschool.instrumentaltesting.databinding.FragmentLoginBinding
 import org.adaschool.instrumentaltesting.viewmodel.LoginFragmentViewModel
 
 /**
@@ -16,10 +16,8 @@ import org.adaschool.instrumentaltesting.viewmodel.LoginFragmentViewModel
  */
 class LoginFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentLoginBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     val viewModel: LoginFragmentViewModel by viewModels()
@@ -29,7 +27,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -39,17 +37,25 @@ class LoginFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
-
+        viewModel.successLiveData.observe(viewLifecycleOwner, {
+            hideShowProgressBar(false)
+            binding.loginButton.isEnabled = true
+        })
         binding.loginButton.setOnClickListener {
-            validateFormFields()
+            if (areLoginFormInputsValid()) {
+                binding.loginButton.isEnabled = false
+                hideShowProgressBar(true)
+                viewModel.login(binding.email.text.toString(), binding.password.text.toString())
+            }
         }
     }
 
-    private fun validateFormFields() {
+    private fun areLoginFormInputsValid(): Boolean {
         if (binding.email.text.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(binding.email.text.toString())
                 .matches()
         ) {
             binding.email.error = getString(R.string.invalid_input)
+            return false
         } else {
             binding.email.error = null
         }
@@ -57,10 +63,20 @@ class LoginFragment : Fragment() {
 
         ) {
             binding.password.error = getString(R.string.invalid_input)
+            return false
         } else {
             binding.password.error = null
         }
+        return true
+    }
 
+    fun hideShowProgressBar(show: Boolean) {
+        activity?.runOnUiThread {
+            if (show)
+                binding.progressBar.visibility = View.VISIBLE
+            else
+                binding.progressBar.visibility = View.GONE
+        }
     }
 
     override fun onDestroyView() {

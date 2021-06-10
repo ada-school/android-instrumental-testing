@@ -12,4 +12,6 @@
   <string name="login">Login</string>
   <string name="Welcome">Welcome</string>
   <string name="invalid_input">invalid input</string>
+  <string name="password">password</string>
+  <string name="email">email</string>
 </resources>
