@@ -33,6 +33,13 @@ class MainActivityBehaviourTest {
     }
 
     @Test
+    fun passwordInputValidationTest() {
+        onView(withId(R.id.email)).perform(clearText(), typeText("santiago@mail.com"))
+        onView(withId(R.id.login_button)).perform(click())
+        onView(withId(R.id.password)).check(matches(hasErrorText(TestsUtils.getResourceString(R.string.invalid_input))))
+    }
+
+    @Test
     fun authenticationFailedThenErrorMessageShown() {
         onView(withId(R.id.email)).perform(clearText(), typeText("santiago@mail.com"))
         onView(withId(R.id.password)).perform(clearText(), typeText("password"))
