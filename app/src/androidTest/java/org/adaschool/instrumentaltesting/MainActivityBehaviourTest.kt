@@ -52,4 +52,15 @@ class MainActivityBehaviourTest {
         Thread.sleep(6_000)
         onView(withId(R.id.errorMessage)).check(matches(not(isDisplayed())))
     }
+
+    @Test
+    fun spinnerShownOnlyDuringAuthentication() {
+        onView(withId(R.id.email)).perform(clearText(), typeText("test@mail.com"))
+        onView(withId(R.id.password)).perform(clearText(), typeText("password"))
+        closeSoftKeyboard()
+        onView(withId(R.id.login_button)).perform(click())
+        onView(withId(R.id.progressBar)).check(matches(isDisplayed()))
+        Thread.sleep(6_000)
+        onView(withId(R.id.progressBar)).check(matches(not(isDisplayed())))
+    }
 }
